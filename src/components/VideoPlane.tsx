@@ -54,7 +54,7 @@ export const VideoPlane = ({ videoUrl, setVideoProgress }: any) => {
       video.addEventListener('timeupdate', () => {
         if (video.duration) {
           const progress = (video.currentTime / video.duration) * 100
-          setVideoProgress(progress)
+          setVideoProgress({ progress, currentTime: video.currentTime, duration: video.duration })
         }
       })
     }

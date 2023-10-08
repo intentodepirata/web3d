@@ -30,7 +30,7 @@ export const App = () => {
           <MainMenu setVideoSelected={setVideoSelected} videoSelected={videoSelected} videoProgress={videoProgress} />
         </Box>
       </Box>
-      <Canvas style={{ position: 'fixed', inset: 0 }} shadows camera={{ position: [0, 30, 60], fov: 15 }}>
+      <Canvas style={{ position: 'fixed', inset: 0 }} shadows camera={{ position: [0, 40, 60], fov: 16 }}>
         <HomeScene videoSelected={videoSelected} setVideoProgress={setVideoProgress} />
       </Canvas>
     </>

@@ -20,7 +20,7 @@ export const sectionStyles = {
 export const sectionMenuStyles = {
   position: 'absolute',
   top: 2,
-  right: 2,
+  left: 2,
   display: 'flex',
   flexDirection: 'column',
   p: 4,

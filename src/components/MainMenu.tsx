@@ -18,15 +18,22 @@ import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import { VideoList } from '@/constant/videoList'
 import Typography from '@mui/material/Typography'
+import { Box, LinearProgress, Stack } from '@mui/material'
 
 export const MainMenu = ({ setVideoSelected, videoSelected, videoProgress }) => {
   const [open, setOpen] = React.useState(true)
-
+  console.log(videoProgress.progress)
   const handleClick = () => {
     setOpen(!open)
   }
   const handleSelected = (video) => {
     setVideoSelected(video)
+  }
+
+  function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60)
+    const remainingSeconds = Math.floor(seconds % 60)
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`
   }
   return (
     <List
@@ -59,47 +66,145 @@ export const MainMenu = ({ setVideoSelected, videoSelected, videoProgress }) => 
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 3 }} onClick={() => handleSelected(VideoList.AGORA)} selected={videoSelected === VideoList.AGORA}>
+          {/* INICIO DEL ITEM */}
+          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.AGORA)} selected={videoSelected === VideoList.AGORA}>
             <ListItemIcon>
               {videoSelected === VideoList.AGORA ? (
-                <>
-                  {' '}
-                  <CircularProgress size={10} variant="determinate" value={videoProgress} />{' '}
-                  <Typography variant="subtitle2" color="inherit">
-                    {videoProgress.toFixed(0)}%
-                  </Typography>{' '}
-                </>
+                <Stack direction="column">
+                  <Typography variant="caption" color="inherit">
+                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                  </Typography>
+                  <Box sx={{ width: '100%' }}>
+                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  </Box>
+                </Stack>
               ) : (
                 <PlayArrowIcon />
               )}
             </ListItemIcon>
-            <ListItemText primary="Agora-TechSolutions" />
+            <ListItemText sx={{ pl: 1 }} primary="Agora-TechSolutions" />
           </ListItemButton>
-          <ListItemButton sx={{ pl: 3 }} onClick={() => handleSelected(VideoList.DREI)} selected={videoSelected === VideoList.DREI}>
+          {/* FIN DEL ITEM */}
+
+          {/* INICIO DEL ITEM */}
+          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.REAL)} selected={videoSelected === VideoList.REAL}>
             <ListItemIcon>
-              <PlayArrowIcon />
-              {videoSelected === VideoList.DREI && <CircularProgress size={10} variant="determinate" value={videoProgress} />}
+              {videoSelected === VideoList.REAL ? (
+                <Stack direction="column">
+                  <Typography variant="caption" color="inherit">
+                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                  </Typography>
+                  <Box sx={{ width: '100%' }}>
+                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  </Box>
+                </Stack>
+              ) : (
+                <PlayArrowIcon />
+              )}
             </ListItemIcon>
-            <ListItemText primary="The Simpson-APP" />
+            <ListItemText sx={{ pl: 1 }} primary="Real State Website" />
           </ListItemButton>
-          <ListItemButton sx={{ pl: 3 }}>
+          {/* FIN DEL ITEM */}
+
+          {/* INICIO DEL ITEM */}
+          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.SIMPSON)} selected={videoSelected === VideoList.SIMPSON}>
             <ListItemIcon>
-              <PlayArrowIcon />
+              {videoSelected === VideoList.SIMPSON ? (
+                <Stack direction="column">
+                  <Typography variant="caption" color="inherit">
+                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                  </Typography>
+                  <Box sx={{ width: '100%' }}>
+                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  </Box>
+                </Stack>
+              ) : (
+                <PlayArrowIcon />
+              )}
             </ListItemIcon>
-            <ListItemText primary="Crypto-APP" />
+            <ListItemText sx={{ pl: 1 }} primary="The Simpson App" />
           </ListItemButton>
-          <ListItemButton sx={{ pl: 3 }}>
+          {/* FIN DEL ITEM */}
+
+          {/* INICIO DEL ITEM */}
+          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.RICKY)} selected={videoSelected === VideoList.RICKY}>
             <ListItemIcon>
-              <PlayArrowIcon />
+              {videoSelected === VideoList.RICKY ? (
+                <Stack direction="column">
+                  <Typography variant="caption" color="inherit">
+                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                  </Typography>
+                  <Box sx={{ width: '100%' }}>
+                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  </Box>
+                </Stack>
+              ) : (
+                <PlayArrowIcon />
+              )}
             </ListItemIcon>
-            <ListItemText primary="My Releevant Store" />
+            <ListItemText sx={{ pl: 1 }} primary="Rycky & Morty App" />
           </ListItemButton>
-          <ListItemButton sx={{ pl: 3 }}>
+          {/* FIN DEL ITEM */}
+
+          {/* INICIO DEL ITEM */}
+          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.RELEEVANT)} selected={videoSelected === VideoList.RELEEVANT}>
             <ListItemIcon>
-              <PlayArrowIcon />
+              {videoSelected === VideoList.RELEEVANT ? (
+                <Stack direction="column">
+                  <Typography variant="caption" color="inherit">
+                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                  </Typography>
+                  <Box sx={{ width: '100%' }}>
+                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  </Box>
+                </Stack>
+              ) : (
+                <PlayArrowIcon />
+              )}
             </ListItemIcon>
-            <ListItemText primary="Real State App" />
+            <ListItemText sx={{ pl: 1 }} primary="My Releevant Store" />
           </ListItemButton>
+          {/* FIN DEL ITEM */}
+
+          {/* INICIO DEL ITEM */}
+          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.CAFE)} selected={videoSelected === VideoList.CAFE}>
+            <ListItemIcon>
+              {videoSelected === VideoList.CAFE ? (
+                <Stack direction="column">
+                  <Typography variant="caption" color="inherit">
+                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                  </Typography>
+                  <Box sx={{ width: '100%' }}>
+                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  </Box>
+                </Stack>
+              ) : (
+                <PlayArrowIcon />
+              )}
+            </ListItemIcon>
+            <ListItemText sx={{ pl: 1 }} primary="Blog de café" />
+          </ListItemButton>
+          {/* FIN DEL ITEM */}
+
+          {/* INICIO DEL ITEM */}
+          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.CRYPTO)} selected={videoSelected === VideoList.CRYPTO}>
+            <ListItemIcon>
+              {videoSelected === VideoList.CRYPTO ? (
+                <Stack direction="column">
+                  <Typography variant="caption" color="inherit">
+                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                  </Typography>
+                  <Box sx={{ width: '100%' }}>
+                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  </Box>
+                </Stack>
+              ) : (
+                <PlayArrowIcon />
+              )}
+            </ListItemIcon>
+            <ListItemText sx={{ pl: 1 }} primary="Crypto Checker App" />
+          </ListItemButton>
+          {/* FIN DEL ITEM */}
         </List>
       </Collapse>
     </List>
