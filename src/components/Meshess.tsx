@@ -7,6 +7,7 @@ export const Mesh1 = ({ position }: { position: [number, number, number] }) => {
     () => ({
       args: [2, 2, 2], // Dimensiones de colisión
       position, // Utiliza la posición pasada como prop
+      rotation: [0, 0, Math.PI / 2.45], // Rotación en el eje Y (45 grados)
       type: "Dynamic", // La mesa se moverá
       mass: 1,
     }),
@@ -32,6 +33,7 @@ export const Mesh2 = ({ position }: { position: [number, number, number] }) => {
     () => ({
       args: [2, 4, 2], // Dimensiones de colisión
       position, // Centrar la geometría de colisión
+      rotation: [0, 0, Math.PI / -2.45], // Rotación en el eje Y (45 grados)
       type: "Dynamic", // La mesa se moverá
       mass: 1,
     }),
