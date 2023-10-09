@@ -2,11 +2,11 @@ import { Suspense, useRef } from "react";
 import { useBox, useSphere, useCylinder } from "@react-three/cannon";
 import { Mesh } from "three";
 
-export const Mesh1 = () => {
+export const Mesh1 = ({ position }: { position: [number, number, number] }) => {
   const [mesh1] = useBox(
     () => ({
       args: [2, 2, 2], // Dimensiones de colisión
-      position: [-7, 10, 4], // Centrar la geometría de colisión
+      position, // Utiliza la posición pasada como prop
       type: "Dynamic", // La mesa se moverá
       mass: 1,
     }),
@@ -27,11 +27,11 @@ export const Mesh1 = () => {
   );
 };
 
-export const Mesh2 = () => {
+export const Mesh2 = ({ position }: { position: [number, number, number] }) => {
   const [mesh2] = useBox(
     () => ({
       args: [2, 4, 2], // Dimensiones de colisión
-      position: [-4, 10, 4], // Centrar la geometría de colisión
+      position, // Centrar la geometría de colisión
       type: "Dynamic", // La mesa se moverá
       mass: 1,
     }),
@@ -52,11 +52,11 @@ export const Mesh2 = () => {
   );
 };
 
-export const Mesh3 = () => {
+export const Mesh3 = ({ position }: { position: [number, number, number] }) => {
   const [mesh3] = useSphere(
     () => ({
       args: [1], // Radio de colisión
-      position: [0, 10, 3], // Posición
+      position, // Posición
       type: "Dynamic", // La mesa se moverá
       mass: 1,
     }),
@@ -67,7 +67,7 @@ export const Mesh3 = () => {
     <>
       <mesh ref={mesh3} castShadow receiveShadow>
         <sphereGeometry args={[1, 32, 32]} />
-        <meshStandardMaterial color={"blue"} />
+        <meshStandardMaterial color={"blue"} roughness={0} metalness={0.3} />
       </mesh>
 
       <Suspense fallback={null}>
@@ -77,11 +77,11 @@ export const Mesh3 = () => {
   );
 };
 
-export const Mesh4 = () => {
-  const [mesh4] = useCylinder(
+export const Mesh4 = ({ position }: { position: [number, number, number] }) => {
+  const [mesh3] = useSphere(
     () => ({
-      args: [1, 1, 4, 32], // Radio superior, radio inferior, altura, número de segmentos
-      position: [3, 10, 3], // Posición
+      args: [1], // Radio de colisión
+      position, // Posición
       type: "Dynamic", // La mesa se moverá
       mass: 1,
     }),
@@ -90,9 +90,9 @@ export const Mesh4 = () => {
 
   return (
     <>
-      <mesh ref={mesh4} castShadow receiveShadow>
-        <cylinderGeometry args={[1, 1, 4, 32]} />
-        <meshStandardMaterial color={"yellow"} />
+      <mesh ref={mesh3} castShadow receiveShadow>
+        <sphereGeometry args={[1, 32, 32]} />
+        <meshStandardMaterial color={"white"} roughness={0} metalness={0.3} />
       </mesh>
 
       <Suspense fallback={null}>
@@ -101,7 +101,6 @@ export const Mesh4 = () => {
     </>
   );
 };
-
 export const Sphere = () => {
   const ref = useRef<Mesh>(null);
   return (
@@ -111,3 +110,29 @@ export const Sphere = () => {
     </mesh>
   );
 };
+
+// Me esta dando problemas poruqe atraviesa el suelo
+// export const Mesh4 = () => {
+//   const [mesh4] = useCylinder(
+//     () => ({
+//       args: [1, 1, 4, 32], // Radio superior, radio inferior, altura, número de segmentos
+//       position: [3, 10, 3], // Posición
+//       type: "Dynamic", // La mesa se moverá
+//       mass: 1,
+//     }),
+//     useRef<Mesh>(null)
+//   );
+
+//   return (
+//     <>
+//       <mesh ref={mesh4} castShadow receiveShadow>
+//         <cylinderGeometry args={[1, 1, 4, 32]} />
+//         <meshStandardMaterial color={"yellow"} />
+//       </mesh>
+
+//       <Suspense fallback={null}>
+//         {/* Agrega aquí cualquier otro contenido que desees en la mesa */}
+//       </Suspense>
+//     </>
+//   );
+// };

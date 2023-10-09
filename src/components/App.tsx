@@ -9,6 +9,7 @@ import { VideoList } from "@/constant/videoList";
 import { Mesh1, Mesh2, Mesh3, Mesh4 } from "@/components";
 import { MeshComponent } from "@/types/components";
 import { VideoProgress } from "@/interfaces/videoProgress";
+import { generateRandomPosition } from "@/utils/randomPosition";
 
 const initialValues = {
   progress: 0,
@@ -36,10 +37,23 @@ export const App = () => {
     }
   }, [renderedMeshes, meshComponents]);
 
+  // const renderNextMesh = () => {
+  //   return renderedMeshes.map((meshComponent, index) => (
+  //     <meshComponent.type key={index} {...meshComponent.props} />
+  //   ));
+  // };
+
   const renderNextMesh = () => {
-    return renderedMeshes.map((meshComponent, index) => (
-      <meshComponent.type key={index} {...meshComponent.props} />
-    ));
+    return renderedMeshes.map((meshComponent, index) => {
+      // Generar una posición aleatoria
+      const randomPosition = generateRandomPosition();
+
+      // Clonar las propiedades existentes y agregar la posición aleatoria
+      const updatedProps = { ...meshComponent.props, position: randomPosition };
+
+      // Renderizar el componente con las propiedades actualizadas
+      return <meshComponent.type key={index} {...updatedProps} />;
+    });
   };
 
   return (
