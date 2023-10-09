@@ -1,57 +1,62 @@
-import * as React from 'react'
-import ListSubheader from '@mui/material/ListSubheader'
-import List from '@mui/material/List'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import Collapse from '@mui/material/Collapse'
-import CircularProgress from '@mui/material/CircularProgress'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import DraftsIcon from '@mui/icons-material/Drafts'
-import SendIcon from '@mui/icons-material/Send'
-import ExpandLess from '@mui/icons-material/ExpandLess'
-import ExpandMore from '@mui/icons-material/ExpandMore'
-import StarBorder from '@mui/icons-material/StarBorder'
-import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet'
-import ComputerIcon from '@mui/icons-material/Computer'
-import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite'
-import PlayArrowIcon from '@mui/icons-material/PlayArrow'
-import { VideoList } from '@/constant/videoList'
-import Typography from '@mui/material/Typography'
-import { Box, LinearProgress, Stack } from '@mui/material'
+import { useState, FC } from "react";
+import {
+  Box,
+  LinearProgress,
+  Stack,
+  ListSubheader,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+  Typography,
+} from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import SettingsEthernetIcon from "@mui/icons-material/SettingsEthernet";
+import ComputerIcon from "@mui/icons-material/Computer";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import { VideoList } from "@/constant/videoList";
+import { MainMenuProps } from "@/interfaces/MainmenuProps";
 
-export const MainMenu = ({ setVideoSelected, videoSelected, videoProgress }) => {
-  const [open, setOpen] = React.useState(true)
-  console.log(videoProgress.progress)
+export const MainMenu: FC<MainMenuProps> = ({
+  setVideoSelected,
+  videoSelected,
+  videoProgress,
+  showNextMesh,
+}) => {
+  const [open, setOpen] = useState(true);
   const handleClick = () => {
-    setOpen(!open)
-  }
-  const handleSelected = (video) => {
-    setVideoSelected(video)
-  }
+    setOpen(!open);
+  };
+  const handleSelected = (video: VideoList) => {
+    setVideoSelected(video);
+  };
 
-  function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60)
-    const remainingSeconds = Math.floor(seconds % 60)
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`
+  function formatTime(seconds: number) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   }
   return (
     <List
-      sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper', p: 2 }}
+      sx={{ width: "100%", maxWidth: 400, bgcolor: "background.paper", p: 2 }}
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
         <ListSubheader component="div" id="nested-list-subheader">
           Main menu
         </ListSubheader>
-      }>
+      }
+    >
       <ListItemButton>
         <ListItemIcon>
           <SendIcon />
         </ListItemIcon>
         <ListItemText primary="Send me a email" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={() => showNextMesh()}>
         <ListItemIcon>
           <SettingsEthernetIcon />
         </ListItemIcon>
@@ -67,19 +72,27 @@ export const MainMenu = ({ setVideoSelected, videoSelected, videoProgress }) => 
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {/* INICIO DEL ITEM */}
-          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.AGORA)} selected={videoSelected === VideoList.AGORA}>
+          <ListItemButton
+            sx={{ display: "flex", justifycontent: "space-between" }}
+            onClick={() => handleSelected(VideoList.AGORA)}
+            selected={videoSelected === VideoList.AGORA}
+          >
             <ListItemIcon>
               {videoSelected === VideoList.AGORA ? (
                 <Stack direction="column">
                   <Typography variant="caption" color="inherit">
-                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                    {formatTime(videoProgress.currentTime)} /{" "}
+                    {formatTime(videoProgress.duration)}
                   </Typography>
-                  <Box sx={{ width: '100%' }}>
-                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress
+                      variant="determinate"
+                      value={videoProgress.progress}
+                    />
                   </Box>
                 </Stack>
               ) : (
-                <PlayArrowIcon />
+                <PlayCircleIcon fontSize="small" />
               )}
             </ListItemIcon>
             <ListItemText sx={{ pl: 1 }} primary="Agora-TechSolutions" />
@@ -87,19 +100,27 @@ export const MainMenu = ({ setVideoSelected, videoSelected, videoProgress }) => 
           {/* FIN DEL ITEM */}
 
           {/* INICIO DEL ITEM */}
-          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.REAL)} selected={videoSelected === VideoList.REAL}>
+          <ListItemButton
+            sx={{ display: "flex", justifycontent: "space-between" }}
+            onClick={() => handleSelected(VideoList.REAL)}
+            selected={videoSelected === VideoList.REAL}
+          >
             <ListItemIcon>
               {videoSelected === VideoList.REAL ? (
                 <Stack direction="column">
                   <Typography variant="caption" color="inherit">
-                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                    {formatTime(videoProgress.currentTime)} /{" "}
+                    {formatTime(videoProgress.duration)}
                   </Typography>
-                  <Box sx={{ width: '100%' }}>
-                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress
+                      variant="determinate"
+                      value={videoProgress.progress}
+                    />
                   </Box>
                 </Stack>
               ) : (
-                <PlayArrowIcon />
+                <PlayCircleIcon fontSize="small" />
               )}
             </ListItemIcon>
             <ListItemText sx={{ pl: 1 }} primary="Real State Website" />
@@ -107,19 +128,27 @@ export const MainMenu = ({ setVideoSelected, videoSelected, videoProgress }) => 
           {/* FIN DEL ITEM */}
 
           {/* INICIO DEL ITEM */}
-          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.SIMPSON)} selected={videoSelected === VideoList.SIMPSON}>
+          <ListItemButton
+            sx={{ display: "flex", justifycontent: "space-between" }}
+            onClick={() => handleSelected(VideoList.SIMPSON)}
+            selected={videoSelected === VideoList.SIMPSON}
+          >
             <ListItemIcon>
               {videoSelected === VideoList.SIMPSON ? (
                 <Stack direction="column">
                   <Typography variant="caption" color="inherit">
-                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                    {formatTime(videoProgress.currentTime)} /{" "}
+                    {formatTime(videoProgress.duration)}
                   </Typography>
-                  <Box sx={{ width: '100%' }}>
-                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress
+                      variant="determinate"
+                      value={videoProgress.progress}
+                    />
                   </Box>
                 </Stack>
               ) : (
-                <PlayArrowIcon />
+                <PlayCircleIcon fontSize="small" />
               )}
             </ListItemIcon>
             <ListItemText sx={{ pl: 1 }} primary="The Simpson App" />
@@ -127,19 +156,27 @@ export const MainMenu = ({ setVideoSelected, videoSelected, videoProgress }) => 
           {/* FIN DEL ITEM */}
 
           {/* INICIO DEL ITEM */}
-          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.RICKY)} selected={videoSelected === VideoList.RICKY}>
+          <ListItemButton
+            sx={{ display: "flex", justifycontent: "space-between" }}
+            onClick={() => handleSelected(VideoList.RICKY)}
+            selected={videoSelected === VideoList.RICKY}
+          >
             <ListItemIcon>
               {videoSelected === VideoList.RICKY ? (
                 <Stack direction="column">
                   <Typography variant="caption" color="inherit">
-                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                    {formatTime(videoProgress.currentTime)} /{" "}
+                    {formatTime(videoProgress.duration)}
                   </Typography>
-                  <Box sx={{ width: '100%' }}>
-                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress
+                      variant="determinate"
+                      value={videoProgress.progress}
+                    />
                   </Box>
                 </Stack>
               ) : (
-                <PlayArrowIcon />
+                <PlayCircleIcon fontSize="small" />
               )}
             </ListItemIcon>
             <ListItemText sx={{ pl: 1 }} primary="Rycky & Morty App" />
@@ -147,19 +184,27 @@ export const MainMenu = ({ setVideoSelected, videoSelected, videoProgress }) => 
           {/* FIN DEL ITEM */}
 
           {/* INICIO DEL ITEM */}
-          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.RELEEVANT)} selected={videoSelected === VideoList.RELEEVANT}>
+          <ListItemButton
+            sx={{ display: "flex", justifycontent: "space-between" }}
+            onClick={() => handleSelected(VideoList.RELEEVANT)}
+            selected={videoSelected === VideoList.RELEEVANT}
+          >
             <ListItemIcon>
               {videoSelected === VideoList.RELEEVANT ? (
                 <Stack direction="column">
                   <Typography variant="caption" color="inherit">
-                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                    {formatTime(videoProgress.currentTime)} /{" "}
+                    {formatTime(videoProgress.duration)}
                   </Typography>
-                  <Box sx={{ width: '100%' }}>
-                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress
+                      variant="determinate"
+                      value={videoProgress.progress}
+                    />
                   </Box>
                 </Stack>
               ) : (
-                <PlayArrowIcon />
+                <PlayCircleIcon fontSize="small" />
               )}
             </ListItemIcon>
             <ListItemText sx={{ pl: 1 }} primary="My Releevant Store" />
@@ -167,19 +212,27 @@ export const MainMenu = ({ setVideoSelected, videoSelected, videoProgress }) => 
           {/* FIN DEL ITEM */}
 
           {/* INICIO DEL ITEM */}
-          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.CAFE)} selected={videoSelected === VideoList.CAFE}>
+          <ListItemButton
+            sx={{ display: "flex", justifycontent: "space-between" }}
+            onClick={() => handleSelected(VideoList.CAFE)}
+            selected={videoSelected === VideoList.CAFE}
+          >
             <ListItemIcon>
               {videoSelected === VideoList.CAFE ? (
                 <Stack direction="column">
                   <Typography variant="caption" color="inherit">
-                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                    {formatTime(videoProgress.currentTime)} /{" "}
+                    {formatTime(videoProgress.duration)}
                   </Typography>
-                  <Box sx={{ width: '100%' }}>
-                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress
+                      variant="determinate"
+                      value={videoProgress.progress}
+                    />
                   </Box>
                 </Stack>
               ) : (
-                <PlayArrowIcon />
+                <PlayCircleIcon fontSize="small" />
               )}
             </ListItemIcon>
             <ListItemText sx={{ pl: 1 }} primary="Blog de café" />
@@ -187,19 +240,27 @@ export const MainMenu = ({ setVideoSelected, videoSelected, videoProgress }) => 
           {/* FIN DEL ITEM */}
 
           {/* INICIO DEL ITEM */}
-          <ListItemButton sx={{ pl: 0.5 }} onClick={() => handleSelected(VideoList.CRYPTO)} selected={videoSelected === VideoList.CRYPTO}>
+          <ListItemButton
+            sx={{ display: "flex", justifycontent: "space-between" }}
+            onClick={() => handleSelected(VideoList.CRYPTO)}
+            selected={videoSelected === VideoList.CRYPTO}
+          >
             <ListItemIcon>
               {videoSelected === VideoList.CRYPTO ? (
                 <Stack direction="column">
                   <Typography variant="caption" color="inherit">
-                    {formatTime(videoProgress.currentTime)} / {formatTime(videoProgress.duration)}
+                    {formatTime(videoProgress.currentTime)} /{" "}
+                    {formatTime(videoProgress.duration)}
                   </Typography>
-                  <Box sx={{ width: '100%' }}>
-                    <LinearProgress variant="determinate" value={videoProgress.progress} />
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress
+                      variant="determinate"
+                      value={videoProgress.progress}
+                    />
                   </Box>
                 </Stack>
               ) : (
-                <PlayArrowIcon />
+                <PlayCircleIcon fontSize="small" />
               )}
             </ListItemIcon>
             <ListItemText sx={{ pl: 1 }} primary="Crypto Checker App" />
@@ -208,5 +269,5 @@ export const MainMenu = ({ setVideoSelected, videoSelected, videoProgress }) => 
         </List>
       </Collapse>
     </List>
-  )
-}
+  );
+};
