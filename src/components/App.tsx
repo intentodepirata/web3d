@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import { mainStyles, sectionStyles, sectionMenuStyles } from "@/styles";
 import { HomeScene } from "@/scenes";
 import { MainMenu } from "@/components";
-import { useState, useEffect, FC } from "react";
+import { useState, FC, useMemo, useCallback } from "react";
 import { VideoList } from "@/constant/videoList";
 import { Mesh1, Mesh2, Mesh3, Mesh4 } from "@/components";
 import { MeshComponent } from "@/types/components";
@@ -18,27 +18,23 @@ const initialValues = {
 export const App = () => {
   const [videoSelected, setVideoSelected] = useState(VideoList.AGORA);
   const [videoProgress, setVideoProgress] =
-    useState<VideoProgress>(initialValues); // Estado para el progreso del video
-  const [renderedMeshes, setRenderedMeshes] = useState<MeshComponent[]>([]); // Estado para almacenar los componentes renderizados([]);
-  const meshComponents: FC[] = [Mesh1, Mesh2, Mesh3, Mesh4];
+    useState<VideoProgress>(initialValues);
+  const [renderedMeshes, setRenderedMeshes] = useState<MeshComponent[]>([]);
 
-  useEffect(() => {}, [videoProgress]);
+  // useMemo para evitar recrear el array en cada renderizado
+  const meshComponents: FC[] = useMemo(() => [Mesh1, Mesh2, Mesh3, Mesh4], []);
 
-  useEffect(() => {
-    // Cuando se cambia el estado de renderedMeshes, ejecutamos esta función para renderizar los componentes almacenados.
-    renderNextMesh();
-  }, [renderedMeshes]);
-
-  const showNextMesh = () => {
+  // useCallback para evitar recrear la función en cada renderizado
+  const showNextMesh = useCallback(() => {
     if (renderedMeshes.length < meshComponents.length) {
       const nextIndex = renderedMeshes.length;
       const ComponentToRender = meshComponents[nextIndex];
-      setRenderedMeshes([
-        ...renderedMeshes,
+      setRenderedMeshes((prevRenderedMeshes) => [
+        ...prevRenderedMeshes,
         { type: ComponentToRender, props: { key: nextIndex } },
       ]);
     }
-  };
+  }, [renderedMeshes, meshComponents]);
 
   const renderNextMesh = () => {
     return renderedMeshes.map((meshComponent, index) => (
