@@ -3,11 +3,11 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import { mainStyles, sectionStyles, sectionMenuStyles } from "@/styles";
 import { HomeScene } from "@/scenes";
-import { MainMenu } from "./MainMenu";
+import { MainMenu } from "@/components";
 import { useState, useEffect, FC } from "react";
 import { VideoList } from "@/constant/videoList";
 import { Mesh1, Mesh2, Mesh3, Mesh4 } from "@/components";
-import { MeshComponent } from "./types/components";
+import { MeshComponent } from "@/types/components";
 import { VideoProgress } from "@/interfaces/videoProgress";
 
 const initialValues = {
