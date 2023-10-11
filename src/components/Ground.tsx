@@ -1,11 +1,7 @@
-import { Reflector, useTexture } from "@react-three/drei";
+import { Reflector, useTexture } from '@react-three/drei'
 
-export const Ground = () => {
-  const [roughness, normal, alpha] = useTexture([
-    "/ground_roughness.jpeg",
-    "/ground_normals.jpeg",
-    "/ground_alpha.jpg",
-  ]);
+export const GroundReflector = () => {
+  const [roughness, normal, alpha] = useTexture(['/ground_roughness.jpeg', '/ground_normals.jpeg', '/ground_alpha.jpg'])
   return (
     <Reflector
       blur={[400, 100]}
@@ -17,19 +13,10 @@ export const Ground = () => {
       mixBlur={6}
       mixStrength={1.5}
       rotation={[-Math.PI / 2, 0, Math.PI / 2]}
-      position={[0, 0.1, 0]}
-    >
+      position={[0, 0.01, 0]}>
       {(Material, props) => (
-        <Material
-          color="#a0a0a0"
-          metalness={0.8}
-          roughness={0.15}
-          alphaMap={alpha}
-          normalScale={[2, 2]}
-          envMapIntensity={0.1}
-          {...props}
-        />
+        <Material color="#a0a0a0" metalness={0.8} roughness={0.15} alphaMap={alpha} normalScale={[2, 2]} envMapIntensity={0.1} {...props} />
       )}
     </Reflector>
-  );
-};
+  )
+}

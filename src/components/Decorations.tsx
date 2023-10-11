@@ -16,9 +16,18 @@ export const Decorations = () => {
   const [icosahedroBox] = useBox(
     () => ({
       args: [1, 1, 1], // Dimensiones de colisión
-      position: [5, 1, 5], // Centrar la geometría de colisión
+      position: [5, 0.9, 5], // Centrar la geometría de colisión
       type: 'Static', // La mesa se moverá
       mass: 1
+    }),
+    useRef<Mesh>(null)
+  )
+
+  const [wireframe] = useBox(
+    () => ({
+      args: [1, 1, 1], // Tamaño de la caja de colisión
+      position: [8, 1.1, 2], // Posición
+      type: 'Static' // Objeto estático, no se moverá
     }),
     useRef<Mesh>(null)
   )
@@ -30,12 +39,12 @@ export const Decorations = () => {
         <meshStandardMaterial color={'yellow'} envMapIntensity={0.5} roughness={0} metalness={0} />
       </RoundedBox>
 
-      <mesh ref={icosahedroBox} position={[5, 1, 5]} castShadow>
+      <mesh ref={icosahedroBox} position={[5, 0.9, 5]} castShadow>
         <icosahedronGeometry />
         <meshStandardMaterial color="magenta" envMapIntensity={0.8} roughness={0.2} metalness={1} />
       </mesh>
 
-      <mesh receiveShadow castShadow rotation-x={-Math.PI / 2} position={[8, 1.1, 2]} scale={[2, 2, 2]}>
+      <mesh ref={wireframe} receiveShadow castShadow rotation-x={-Math.PI / 2} position={[8, 1.1, 2]} scale={[2, 2, 2]}>
         <boxGeometry args={[1, 1, 1, 3, 3, 3]} />
         <meshStandardMaterial color="#2d2d2d" envMapIntensity={0.5} roughness={0} metalness={0} wireframe />
       </mesh>

@@ -2,6 +2,56 @@ import { Suspense, useRef } from "react";
 import { useBox, useSphere, useCylinder } from "@react-three/cannon";
 import { Mesh } from "three";
 
+export const VideoWall = () => {
+  const [videoWall] = useBox(
+    () => ({
+      args: [17, 10, 1], // Dimensiones de colisión
+      position: [0, 5, 0], // Utiliza la posición pasada como prop
+      type: "Static", // La mesa se moverá
+      mass: 1,
+    }),
+    useRef<Mesh>(null)
+  );
+
+  return (
+    <>
+      <mesh ref={videoWall} castShadow receiveShadow position={[0, 5, 0]}>
+        <boxGeometry args={[17, 10, 1]} />
+        <meshStandardMaterial
+          color={"black"}
+          envMapIntensity={0.5}
+          roughness={0.2}
+          metalness={0.8}
+        />
+      </mesh>
+    </>
+  );
+};
+export const Ground = () => {
+  const [ground] = useCylinder(
+    () => ({
+      args: [10, 10, 10, 64], // Dimensiones de colisión
+      position: [0, -5, 0], // Utiliza la posición pasada como prop
+      type: "Static", // La mesa se moverá
+    }),
+    useRef<Mesh>(null)
+  );
+
+  return (
+    <>
+      <mesh ref={ground}>
+        <cylinderGeometry args={[10, 10, 10, 64]} />
+        <meshStandardMaterial
+          color={"black"}
+          envMapIntensity={0.5}
+          roughness={0}
+          metalness={0}
+        />
+      </mesh>
+    </>
+  );
+};
+
 export const Mesh1 = ({ position }: { position: [number, number, number] }) => {
   const [mesh1] = useBox(
     () => ({

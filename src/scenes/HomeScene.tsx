@@ -1,26 +1,16 @@
-import {
-  Decorations,
-  Lights,
-  VideoPlane,
-  Ground,
-  VideoText,
-  GroundMaterial,
-  Sphere,
-} from "@/components";
-import CyberTruck from "@/models/CyberTruck";
-import { Environment, OrbitControls, Stars } from "@react-three/drei";
-import { Suspense } from "react";
-import { HomeSceneProps } from "@/interfaces";
-import { Physics } from "@react-three/cannon";
+import { Decorations, Lights, VideoPlane, VideoText, Sphere, VideoWall, GroundReflector, Ground } from '@/components'
+import CyberTruck from '@/models/CyberTruck'
+import { Avatar } from '@/models/Avatar'
+import { Environment, OrbitControls, Stars } from '@react-three/drei'
+import { HomeSceneProps } from '@/interfaces'
+import { Physics } from '@react-three/cannon'
+import { Suspense } from 'react'
+import { Lamp } from '@/components/Lamp'
 
-export const HomeScene: React.FC<HomeSceneProps> = ({
-  videoSelected,
-  setVideoProgress,
-  renderNextMesh,
-}) => {
+export const HomeScene: React.FC<HomeSceneProps> = ({ videoSelected, setVideoProgress, renderNextMesh }) => {
   return (
     <>
-      <color attach="background" args={["#151520"]} />
+      <color attach="background" args={['#151520']} />
 
       <OrbitControls />
 
@@ -30,58 +20,26 @@ export const HomeScene: React.FC<HomeSceneProps> = ({
       <Physics iterations={15} gravity={[0, -25, 0]} allowSleep={false}>
         {renderNextMesh()}
 
-        <VideoPlane
-          videoUrl={videoSelected}
-          setVideoProgress={setVideoProgress}
-        />
+        <VideoPlane videoUrl={videoSelected} setVideoProgress={setVideoProgress} />
 
         <VideoText position={[0, 5, -0.52]} />
 
-        {/* Video Wall */}
-        <mesh castShadow receiveShadow position={[0, 5, 0]}>
-          <boxGeometry args={[17, 10, 1]} />
-          <meshStandardMaterial
-            color={"black"}
-            envMapIntensity={0.5}
-            roughness={0.2}
-            metalness={0.8}
-          />
-        </mesh>
+        <VideoWall />
 
-        {/* Base */}
-        <mesh position={[0, -5, 0]}>
-          <cylinderGeometry args={[10, 10, 10, 64]} />
-          <meshStandardMaterial
-            color={"black"}
-            envMapIntensity={0.5}
-            roughness={0}
-            metalness={0}
-          />
-        </mesh>
-        <GroundMaterial position={[0, 0, 0]} />
+        <GroundReflector />
+        <Ground />
 
         <Sphere />
 
-        <Ground />
-
         <Decorations />
+
+        {/* <Lamp /> */}
         <Suspense fallback={null}>
-          <CyberTruck
-            position={[4, 0, -4.9]}
-            rotation-y={Math.PI / 0.31}
-            scale={1.5}
-          />
+          {/* <CyberTruck position={[4, 0, -4.9]} rotation-y={Math.PI / 0.31} scale={[1.5, 1.5, 1.5]} /> */}
+          <Avatar position={[-4, 0, -4.9]} scale={[2, 2, 2]} rotation-y={Math.PI / -0.31} />
         </Suspense>
       </Physics>
-      <Stars
-        radius={50}
-        count={5000}
-        depth={50}
-        factor={20}
-        saturation={0}
-        fade
-        speed={1}
-      />
+      <Stars radius={50} count={5000} depth={50} factor={20} saturation={0} fade speed={1} />
     </>
-  );
-};
+  )
+}
