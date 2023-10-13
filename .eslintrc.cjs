@@ -14,8 +14,8 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
-    "@typescript-eslint/no-explicit-any": "off", // Deshabilitar la regla no-explicit-any
-    "@typescript-eslint/no-inferrable-types": "error", // Habilitar la regla no-inferrable-types por defecto
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-inferrable-types": "error",
     "react/prop-types": "off",
   },
 };

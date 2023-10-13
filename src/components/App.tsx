@@ -2,12 +2,12 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import { mainStyles, sectionStyles, sectionMenuStyles } from "@/styles";
-import { HomeScene } from "@/scenes";
-import { CameraPositionControl, MainMenu, VideoPlane } from "@/components";
+
+import { MainMenu } from "@/components";
 import { useState, FC, useMemo, useCallback, Suspense } from "react";
-import { VideoList } from "@/constant/videoList";
+
 import { MeshComponent } from "@/types/components";
-import { VideoProgress } from "@/interfaces/videoProgress";
+
 import { generateRandomPosition } from "@/utils/randomPosition";
 import {
   Javascript,
@@ -19,11 +19,10 @@ import {
   Docker,
   Postgresql,
   Mongodb,
-  Avatar,
 } from "@/models";
 import { ScrollControls } from "@react-three/drei";
 import * as THREE from "three";
-import { useControls } from "leva";
+import HomeScene from "@/scenes/HomeScene";
 
 const CURVE = new THREE.CatmullRomCurve3([
   new THREE.Vector3(0, 30, 60),
@@ -35,10 +34,7 @@ const CURVE = new THREE.CatmullRomCurve3([
   new THREE.Vector3(0, 30, -60),
 ]);
 
-export const App = () => {
-  // const [videoSelected, setVideoSelected] = useState(VideoList.AGORA);
-  // const [videoProgress, setVideoProgress] =
-  //   useState<VideoProgress>(initialValues);
+export default function App() {
   const [renderedMeshes, setRenderedMeshes] = useState<MeshComponent[]>([]);
 
   const meshComponents: FC[] = useMemo(
@@ -109,26 +105,18 @@ export const App = () => {
   //   camera.lookAt(0, 0, 0); // Opcional: Haz que la cámara mire al origen o cualquier otro punto
   // }
   const [animateCamera, setAnimateCamera] = useState(false);
-  const { animation } = useControls({
-    animation: {
-      options: ["Standing", "Falling", "Typing"],
-    },
-  });
-  console.log(animation);
+
   return (
     <>
       <Box component="main" sx={mainStyles}>
         <Box component="section" sx={sectionStyles}>
-          <Typography component="h2" variant="h5" color="inherit">
+          <Typography component="h2" variant="h5" color="primary">
             By Antonio Alvarez - @intentodepirata
           </Typography>
         </Box>
 
         <Box component="section" sx={sectionMenuStyles}>
           <MainMenu
-            // setVideoSelected={setVideoSelected}
-            // videoSelected={videoSelected}
-            // videoProgress={videoProgress}
             showNextMesh={showNextMesh}
             setAnimateCamera={setAnimateCamera}
           />
@@ -138,23 +126,16 @@ export const App = () => {
         style={{ position: "fixed", inset: 0 }}
         shadows
         camera={{ position: [0, 40, 60], fov: 16 }}
+        legacy={true}
       >
         {/* <CameraPositionControl /> */}
-        {/* <ScrollControls distance={5} enabled damping={1}> */}
-        <HomeScene
-          // videoSelected={videoSelected}
-          // setVideoProgress={setVideoProgress}
-          renderNextMesh={renderNextMesh}
-          animateCamera={animateCamera}
-          animation={animation}
-        />
-        <VideoPlane
-        // videoUrl={videoSelected}
-        // setVideoProgress={setVideoProgress}
-        />
-
-        {/* </ScrollControls> */}
+        <ScrollControls distance={5} enabled damping={1}>
+          <HomeScene
+            renderNextMesh={renderNextMesh}
+            animateCamera={animateCamera}
+          />
+        </ScrollControls>
       </Canvas>
     </>
   );
-};
+}

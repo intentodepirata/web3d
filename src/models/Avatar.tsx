@@ -1,58 +1,23 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAnimations, useFBX, useGLTF } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
-import { useControls } from "leva";
-import * as THREE from "three";
+import { useThree } from "@react-three/fiber";
 
-export const Avatar: React.FC = (props) => {
-  const { animation } = props;
-  const group = useRef<THREE.Group>();
+export default function Avatar(props) {
   const scene = useThree((state) => state.scene);
   const { nodes, materials } = useGLTF("models/avatar.glb");
-
-  const { headFollow, cursorFollow } = useControls({
-    headFollow: false,
-    cursorFollow: false,
-  });
 
   const { animations: typingAnimations } = useFBX("animations/Typing.fbx");
   typingAnimations[0].name = "Typing";
 
-  const { animations: fallingAnimations } = useFBX(
-    "animations/Falling Idle.fbx"
-  );
-  fallingAnimations[0].name = "Falling";
-
-  const { animations: standingAnimations } = useFBX(
-    "animations/Standing W_Briefcase Idle.fbx"
-  );
-  standingAnimations[0].name = "Standing";
-
   const avatarGroup = scene.getObjectByName("Avatar");
 
-  const { actions } = useAnimations(
-    [standingAnimations[0], fallingAnimations[0], typingAnimations[0]],
-    avatarGroup
-  );
+  const { actions } = useAnimations([typingAnimations[0]], avatarGroup);
+
   useEffect(() => {
-    actions[animation]?.fadeIn(0.5).play();
-
-    return () => {
-      if (actions) {
-        actions[animation]?.fadeOut(0.5);
-      }
-    };
-  }, [animation]);
-
-  useFrame((state) => {
-    if (headFollow) {
-      avatarGroup.getObjectByName("Head").lookAt(state.camera.position);
+    if (actions.Typing) {
+      actions.Typing.reset().play();
     }
-    if (cursorFollow) {
-      const target = new THREE.Vector3(state.mouse.x, state.mouse.y, 1);
-      avatarGroup.getObjectByName("Spine2").lookAt(target);
-    }
-  });
+  }, [actions.Typing]);
 
   return (
     <group {...props} name="Avatar" dispose={null}>
@@ -121,6 +86,6 @@ export const Avatar: React.FC = (props) => {
       />
     </group>
   );
-};
+}
 
 useGLTF.preload("models/avatar.glb");

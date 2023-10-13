@@ -1,5 +1,9 @@
-export * from "./Avatar";
+export { default as Avatar } from "./Avatar";
+export { default as AvatarAndAnimation } from "./AvatarAndAnimation";
+export { default as Chair } from "./Chair";
+export { default as Computer } from "./Computer";
 export { default as CyberTruck } from "./CyberTruck";
+export { default as Desktop } from "./Desktop";
 export * from "./Docker";
 export * from "./Javascript";
 export * from "./MaterialUI";

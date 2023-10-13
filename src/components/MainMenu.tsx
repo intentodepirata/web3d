@@ -94,7 +94,7 @@ export const MainMenu: FC<MainMenuProps> = ({
                   <PlayCircleOutlineIcon fontSize="small" />
                 )}
               </ListItemIcon>
-              <ListItemText sx={{ pl: 1 }} primary="Agora-techsolutions" />
+              <ListItemText sx={{ pl: 1 }} secondary="Agora-techsolutions" />
             </ListItemButton>
             {/* FIN DEL ITEM */}
 
@@ -122,7 +122,7 @@ export const MainMenu: FC<MainMenuProps> = ({
                   <PlayCircleOutlineIcon fontSize="small" />
                 )}
               </ListItemIcon>
-              <ListItemText sx={{ pl: 1 }} primary="Real State Website" />
+              <ListItemText sx={{ pl: 1 }} secondary="Real State Website" />
             </ListItemButton>
             {/* FIN DEL ITEM */}
 
@@ -150,7 +150,7 @@ export const MainMenu: FC<MainMenuProps> = ({
                   <PlayCircleOutlineIcon fontSize="small" />
                 )}
               </ListItemIcon>
-              <ListItemText sx={{ pl: 1 }} primary="The Simpson App" />
+              <ListItemText sx={{ pl: 1 }} secondary="The Simpson App" />
             </ListItemButton>
             {/* FIN DEL ITEM */}
 
@@ -178,7 +178,7 @@ export const MainMenu: FC<MainMenuProps> = ({
                   <PlayCircleOutlineIcon fontSize="small" />
                 )}
               </ListItemIcon>
-              <ListItemText sx={{ pl: 1 }} primary="Rycky & Morty App" />
+              <ListItemText sx={{ pl: 1 }} secondary="Rycky & Morty App" />
             </ListItemButton>
             {/* FIN DEL ITEM */}
 
@@ -206,7 +206,7 @@ export const MainMenu: FC<MainMenuProps> = ({
                   <PlayCircleOutlineIcon fontSize="small" />
                 )}
               </ListItemIcon>
-              <ListItemText sx={{ pl: 1 }} primary="My Releevant Store" />
+              <ListItemText sx={{ pl: 1 }} secondary="My Releevant Store" />
             </ListItemButton>
             {/* FIN DEL ITEM */}
 
@@ -234,7 +234,7 @@ export const MainMenu: FC<MainMenuProps> = ({
                   <PlayCircleOutlineIcon fontSize="small" />
                 )}
               </ListItemIcon>
-              <ListItemText sx={{ pl: 1 }} primary="Blog de café" />
+              <ListItemText sx={{ pl: 1 }} secondary="Blog de café" />
             </ListItemButton>
             {/* FIN DEL ITEM */}
 
@@ -262,7 +262,7 @@ export const MainMenu: FC<MainMenuProps> = ({
                   <PlayCircleOutlineIcon fontSize="small" />
                 )}
               </ListItemIcon>
-              <ListItemText sx={{ pl: 1 }} primary="Crypto Checker App" />
+              <ListItemText sx={{ pl: 1 }} secondary="Crypto Checker App" />
             </ListItemButton>
             {/* FIN DEL ITEM */}
           </List>
