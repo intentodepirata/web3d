@@ -1,10 +1,61 @@
-import React, { useRef } from "react";
-import { useGLTF } from "@react-three/drei";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useAnimations, useFBX, useGLTF } from "@react-three/drei";
+import { useFrame, useThree } from "@react-three/fiber";
+import { useControls } from "leva";
+import * as THREE from "three";
 
-export const Avatar = (props) => {
+export const Avatar: React.FC = (props) => {
+  const { animation } = props;
+  const group = useRef<THREE.Group>();
+  const scene = useThree((state) => state.scene);
   const { nodes, materials } = useGLTF("models/avatar.glb");
+
+  const { headFollow, cursorFollow } = useControls({
+    headFollow: false,
+    cursorFollow: false,
+  });
+
+  const { animations: typingAnimations } = useFBX("animations/Typing.fbx");
+  typingAnimations[0].name = "Typing";
+
+  const { animations: fallingAnimations } = useFBX(
+    "animations/Falling Idle.fbx"
+  );
+  fallingAnimations[0].name = "Falling";
+
+  const { animations: standingAnimations } = useFBX(
+    "animations/Standing W_Briefcase Idle.fbx"
+  );
+  standingAnimations[0].name = "Standing";
+
+  const avatarGroup = scene.getObjectByName("Avatar");
+
+  const { actions } = useAnimations(
+    [standingAnimations[0], fallingAnimations[0], typingAnimations[0]],
+    avatarGroup
+  );
+  useEffect(() => {
+    actions[animation]?.fadeIn(0.5).play();
+
+    return () => {
+      if (actions) {
+        actions[animation]?.fadeOut(0.5);
+      }
+    };
+  }, [animation]);
+
+  useFrame((state) => {
+    if (headFollow) {
+      avatarGroup.getObjectByName("Head").lookAt(state.camera.position);
+    }
+    if (cursorFollow) {
+      const target = new THREE.Vector3(state.mouse.x, state.mouse.y, 1);
+      avatarGroup.getObjectByName("Spine2").lookAt(target);
+    }
+  });
+
   return (
-    <group {...props} dispose={null}>
+    <group {...props} name="Avatar" dispose={null}>
       <primitive object={nodes.Hips} />
       <skinnedMesh
         name="EyeLeft"

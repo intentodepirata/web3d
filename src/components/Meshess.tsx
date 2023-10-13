@@ -7,7 +7,7 @@ export const VideoWall = () => {
     () => ({
       args: [17, 10, 1], // Dimensiones de colisión
       position: [0, 5, 0], // Utiliza la posición pasada como prop
-      type: "Static", // La mesa se moverá
+      type: "Static",
       mass: 1,
     }),
     useRef<Mesh>(null)
@@ -27,12 +27,13 @@ export const VideoWall = () => {
     </>
   );
 };
+
 export const Ground = () => {
   const [ground] = useCylinder(
     () => ({
       args: [10, 10, 10, 64], // Dimensiones de colisión
-      position: [0, -5, 0], // Utiliza la posición pasada como prop
-      type: "Static", // La mesa se moverá
+      position: [0, -5, 0],
+      type: "Static",
     }),
     useRef<Mesh>(null)
   );
@@ -58,7 +59,7 @@ export const Mesh1 = ({ position }: { position: [number, number, number] }) => {
       args: [2, 2, 2], // Dimensiones de colisión
       position, // Utiliza la posición pasada como prop
       rotation: [0, 0, Math.PI / 2.45], // Rotación en el eje Y (45 grados)
-      type: "Dynamic", // La mesa se moverá
+      type: "Dynamic",
       mass: 1,
     }),
     useRef<Mesh>(null)
@@ -84,7 +85,7 @@ export const Mesh2 = ({ position }: { position: [number, number, number] }) => {
       args: [2, 4, 2], // Dimensiones de colisión
       position, // Centrar la geometría de colisión
       rotation: [0, 0, Math.PI / -2.45], // Rotación en el eje Y (45 grados)
-      type: "Dynamic", // La mesa se moverá
+      type: "Dynamic",
       mass: 1,
     }),
     useRef<Mesh>(null)
@@ -109,7 +110,7 @@ export const Mesh3 = ({ position }: { position: [number, number, number] }) => {
     () => ({
       args: [1], // Radio de colisión
       position, // Posición
-      type: "Dynamic", // La mesa se moverá
+      type: "Dynamic",
       mass: 1,
     }),
     useRef<Mesh>(null)
@@ -134,7 +135,7 @@ export const Mesh4 = ({ position }: { position: [number, number, number] }) => {
     () => ({
       args: [1], // Radio de colisión
       position, // Posición
-      type: "Dynamic", // La mesa se moverá
+      type: "Dynamic",
       mass: 1,
     }),
     useRef<Mesh>(null)
@@ -169,7 +170,7 @@ export const Sphere = () => {
 //     () => ({
 //       args: [1, 1, 4, 32], // Radio superior, radio inferior, altura, número de segmentos
 //       position: [3, 10, 3], // Posición
-//       type: "Dynamic", // La mesa se moverá
+//       type: "Dynamic",
 //       mass: 1,
 //     }),
 //     useRef<Mesh>(null)
