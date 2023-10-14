@@ -18,6 +18,7 @@ import {
 import { ScrollControls } from "@react-three/drei";
 import { MainMenu } from "@/components";
 import { HomeScene } from "@/scenes";
+import HoverComponent from "./HoverComponent";
 
 export default function App() {
   const [renderedMeshes, setRenderedMeshes] = useState<MeshComponent[]>([]);
@@ -94,6 +95,7 @@ export default function App() {
           <MainMenu showNextMesh={showNextMesh} />
         </Box>
       </Box>
+
       <Canvas
         style={{ position: "fixed", inset: 0 }}
         shadows
@@ -102,9 +104,10 @@ export default function App() {
       >
         {/* <CameraPositionControl /> */}
         <ScrollControls distance={5} enabled damping={1}>
-          <HomeScene renderNextMesh={renderNextMesh} />
+          <HomeScene />
         </ScrollControls>
       </Canvas>
+      <HoverComponent />
     </>
   );
 }

@@ -28,7 +28,8 @@ import { useCamera } from "@/contexts/CameraContexts";
 export default function MainMenu({ showNextMesh }) {
   const { handleSelected, videoSelected, videoProgress } = useElapsedTime();
   const [open, setOpen] = useState(false);
-  const { startMovingCamera, isMoving } = useCamera();
+  const { startMovingCamera, isMoving, isMovingToTechlogics, goToTechlogics } =
+    useCamera();
 
   const handleClick = () => {
     setOpen(!open);

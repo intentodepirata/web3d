@@ -18,8 +18,10 @@ import { CURVE } from "@/utils/cameraCurve";
 import { useRef } from "react";
 import { useCamera } from "@/contexts/CameraContexts";
 import * as THREE from "three";
+import { useMesh } from "@/contexts/MeshContext";
 
-export default function HomeScene({ renderNextMesh }) {
+export default function HomeScene() {
+  const { renderNextMesh } = useMesh();
   const scroll = useScroll();
   const { isMoving } = useCamera();
 
