@@ -1,13 +1,8 @@
 import { Canvas, useThree } from "@react-three/fiber";
-import { Typography } from "@mui/material";
-import { Box } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import { mainStyles, sectionStyles, sectionMenuStyles } from "@/styles";
-
-import { MainMenu } from "@/components";
 import { useState, FC, useMemo, useCallback, Suspense } from "react";
-
 import { MeshComponent } from "@/types/components";
-
 import { generateRandomPosition } from "@/utils/randomPosition";
 import {
   Javascript,
@@ -21,18 +16,8 @@ import {
   Mongodb,
 } from "@/models";
 import { ScrollControls } from "@react-three/drei";
-import * as THREE from "three";
-import HomeScene from "@/scenes/HomeScene";
-
-const CURVE = new THREE.CatmullRomCurve3([
-  new THREE.Vector3(0, 30, 60),
-  new THREE.Vector3(0, 30, 80),
-  new THREE.Vector3(60, 30, 45),
-  new THREE.Vector3(80, 30, 0),
-  new THREE.Vector3(60, 30, -45),
-  new THREE.Vector3(0, 30, -80),
-  new THREE.Vector3(0, 30, -60),
-]);
+import { MainMenu } from "@/components";
+import { HomeScene } from "@/scenes";
 
 export default function App() {
   const [renderedMeshes, setRenderedMeshes] = useState<MeshComponent[]>([]);
@@ -51,7 +36,6 @@ export default function App() {
       Javascript,
       Nestjs,
       React,
-
       Typescript,
       MaterialUI,
       Nodejs,
@@ -97,15 +81,6 @@ export default function App() {
     });
   };
 
-  // function handleCameraRotation() {
-  //   const { camera } = useThree();
-  //   const targetPosition = new THREE.Vector3(x, y, z); // Define la posición a la que deseas que la cámara rote
-
-  //   camera.position.copy(targetPosition); // Establece la posición de la cámara
-  //   camera.lookAt(0, 0, 0); // Opcional: Haz que la cámara mire al origen o cualquier otro punto
-  // }
-  const [animateCamera, setAnimateCamera] = useState(false);
-
   return (
     <>
       <Box component="main" sx={mainStyles}>
@@ -116,10 +91,7 @@ export default function App() {
         </Box>
 
         <Box component="section" sx={sectionMenuStyles}>
-          <MainMenu
-            showNextMesh={showNextMesh}
-            setAnimateCamera={setAnimateCamera}
-          />
+          <MainMenu showNextMesh={showNextMesh} />
         </Box>
       </Box>
       <Canvas
@@ -130,10 +102,7 @@ export default function App() {
       >
         {/* <CameraPositionControl /> */}
         <ScrollControls distance={5} enabled damping={1}>
-          <HomeScene
-            renderNextMesh={renderNextMesh}
-            animateCamera={animateCamera}
-          />
+          <HomeScene renderNextMesh={renderNextMesh} />
         </ScrollControls>
       </Canvas>
     </>

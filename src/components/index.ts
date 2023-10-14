@@ -1,10 +1,10 @@
 export { default as App } from "./App";
 export * from "./Decorations";
-export * from "./Ground";
 export * from "./GroundMaterial";
+export * from "./GroundReflector";
 export * from "./Lamp";
 export * from "./Lights";
-export * from "./MainMenu";
+export { default as MainMenu } from "./MainMenu";
 export * from "./Meshess";
 export * from "./VideoPlane";
 export * from "./VideoText";

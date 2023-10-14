@@ -5,14 +5,17 @@ import { darkTheme } from "./theme/theme";
 import "@/styles/index.css";
 import { ElapsedTimeProvider } from "./contexts/ElapsedTimeContext";
 import { App } from "./components";
+import { CameraProvider } from "./contexts/CameraContexts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <ElapsedTimeProvider>
-        <App />
-      </ElapsedTimeProvider>
+      <CameraProvider>
+        <ElapsedTimeProvider>
+          <App />
+        </ElapsedTimeProvider>
+      </CameraProvider>
     </ThemeProvider>
   </StrictMode>
 );

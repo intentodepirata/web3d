@@ -3,21 +3,25 @@ import { useAnimations, useFBX, useGLTF } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 
 export default function Avatar(props) {
+  const [animationState, setAnimationState] = useState(null);
   const scene = useThree((state) => state.scene);
+  const avatarGroup = scene.getObjectByName("Avatar");
   const { nodes, materials } = useGLTF("models/avatar.glb");
-
   const { animations: typingAnimations } = useFBX("animations/Typing.fbx");
   typingAnimations[0].name = "Typing";
-
-  const avatarGroup = scene.getObjectByName("Avatar");
-
   const { actions } = useAnimations([typingAnimations[0]], avatarGroup);
 
   useEffect(() => {
-    if (actions.Typing) {
-      actions.Typing.reset().play();
+    if (avatarGroup) {
+      setAnimationState(actions.Typing);
     }
-  }, [actions.Typing]);
+  }, [avatarGroup, actions.Typing]);
+
+  useEffect(() => {
+    if (animationState) {
+      animationState.reset().play();
+    }
+  }, [scene, avatarGroup, actions, typingAnimations, animationState]);
 
   return (
     <group {...props} name="Avatar" dispose={null}>

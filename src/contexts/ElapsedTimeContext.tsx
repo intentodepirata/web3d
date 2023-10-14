@@ -27,26 +27,30 @@ export function ElapsedTimeProvider({ children }) {
 
   useEffect(() => {
     if (video) {
-      video.src = videoSelected;
-      video.play();
-      setVideo(video);
+      try {
+        video.src = videoSelected;
+        video.play();
+        setVideo(video);
 
-      const updateVideoProgress = () => {
-        if (video.duration) {
-          const progress = (video.currentTime / video.duration) * 100;
-          setVideoProgress({
-            progress,
-            currentTime: video.currentTime,
-            duration: video.duration,
-          });
-        }
-      };
+        const updateVideoProgress = () => {
+          if (video.duration) {
+            const progress = (video.currentTime / video.duration) * 100;
+            setVideoProgress({
+              progress,
+              currentTime: video.currentTime,
+              duration: video.duration,
+            });
+          }
+        };
 
-      video.addEventListener("timeupdate", updateVideoProgress);
+        video.addEventListener("timeupdate", updateVideoProgress);
 
-      return () => {
-        video.removeEventListener("timeupdate", updateVideoProgress);
-      };
+        return () => {
+          video.removeEventListener("timeupdate", updateVideoProgress);
+        };
+      } catch (error) {
+        console.error("Error al cargar y reproducir el video:", error);
+      }
     }
   }, [videoSelected, video, setVideoProgress]);
 

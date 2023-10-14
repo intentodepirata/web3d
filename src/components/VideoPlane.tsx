@@ -4,37 +4,6 @@ import { useElapsedTime } from "../contexts/ElapsedTimeContext";
 export const VideoPlane = () => {
   const { video } = useElapsedTime();
 
-  // const [video, setVideo] = useState<HTMLVideoElement>(() =>
-  //   Object.assign(document.createElement("video"), {
-  //     src: videoUrl,
-  //     crossOrigin: "anonymous",
-  //     loop: true,
-  //     muted: true,
-  //     CrossOrigin: "anonymous",
-  //   })
-  // );
-
-  // useEffect(() => {
-  //   if (video) {
-  //     video.src = videoUrl;
-  //     video.play();
-  //     setVideo(video);
-
-  //     // Actualizar el progreso del video cuando cambie el currentTime
-  //     video.addEventListener("timeupdate", () => {
-  //       if (video.duration) {
-  //         const progress = (video.currentTime / video.duration) * 100;
-  //         setVideoProgress({
-  //           progress,
-  //           currentTime: video.currentTime,
-  //           duration: video.duration,
-  //         });
-  //       }
-  //     });
-  //   }
-
-  // }, [videoUrl, video, setVideoProgress]);
-
   return (
     <mesh castShadow receiveShadow position={[0, 5, 0.51]} scale={[16, 9, 1]}>
       <planeGeometry />

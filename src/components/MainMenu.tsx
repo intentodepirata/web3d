@@ -1,4 +1,4 @@
-import { useState, FC } from "react";
+import { useState } from "react";
 import {
   Box,
   LinearProgress,
@@ -21,24 +21,22 @@ import ComputerIcon from "@mui/icons-material/Computer";
 import InfoIcon from "@mui/icons-material/Info";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { VideoList } from "@/constant/videoList";
-import { MainMenuProps } from "@/interfaces/";
 import { useElapsedTime } from "@/contexts/ElapsedTimeContext";
+import { formatTime } from "@/utils/formatTime";
+import { useCamera } from "@/contexts/CameraContexts";
 
-export const MainMenu: FC<MainMenuProps> = ({
-  showNextMesh,
-  setAnimateCamera,
-}) => {
+export default function MainMenu({ showNextMesh }) {
   const { handleSelected, videoSelected, videoProgress } = useElapsedTime();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const { startMovingCamera, isMoving } = useCamera();
+
   const handleClick = () => {
     setOpen(!open);
   };
+  const handleStartMovingCamera = () => {
+    startMovingCamera();
+  };
 
-  function formatTime(seconds: number) {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = Math.floor(seconds % 60);
-    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
-  }
   return (
     <Paper elevation={10}>
       <List
@@ -268,21 +266,28 @@ export const MainMenu: FC<MainMenuProps> = ({
           </List>
         </Collapse>
         <Divider sx={{ my: 2 }} />
+
+        {/* INICIO DEL ITEM */}
         <ListItemButton
-          onClick={() => setAnimateCamera((oldState) => !oldState)}
+          onClick={() => handleStartMovingCamera()}
+          selected={isMoving}
         >
           <ListItemIcon>
             <InfoIcon />
           </ListItemIcon>
           <ListItemText primary="About me" />
         </ListItemButton>
+        {/* FIN DEL ITEM */}
+
+        {/* INICIO DEL ITEM */}
         <ListItemButton>
           <ListItemIcon>
             <SendIcon />
           </ListItemIcon>
           <ListItemText primary="Send me a email" />
         </ListItemButton>
+        {/* FIN DEL ITEM */}
       </List>
     </Paper>
   );
-};
+}

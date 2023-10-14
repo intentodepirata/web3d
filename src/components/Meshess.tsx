@@ -1,7 +1,7 @@
-import { Suspense, useRef } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useBox, useSphere, useCylinder } from "@react-three/cannon";
-import { Mesh } from "three";
-
+import { Mesh, TextureLoader, sRGBEncoding } from "three";
+import { useLoader } from "@react-three/fiber";
 export const VideoWall = () => {
   const [videoWall] = useBox(
     () => ({
@@ -25,6 +25,44 @@ export const VideoWall = () => {
         />
       </mesh>
     </>
+  );
+};
+export const Screen1 = (props) => {
+  const [video] = useState(() =>
+    Object.assign(document.createElement("video"), {
+      src: "/videos/visualcode.mp4",
+      crossOrigin: "Anonymous",
+      loop: true,
+      muted: true,
+    })
+  );
+  useEffect(() => void video.play(), [video]);
+  return (
+    <mesh {...props}>
+      <planeGeometry args={[16, 9]} />
+      <meshBasicMaterial toneMapped={false}>
+        <videoTexture attach="map" args={[video]} encoding={sRGBEncoding} />
+      </meshBasicMaterial>
+    </mesh>
+  );
+};
+export const Screen2 = (props) => {
+  const [video] = useState(() =>
+    Object.assign(document.createElement("video"), {
+      src: "/videos/presentacion.mp4",
+      crossOrigin: "Anonymous",
+      loop: true,
+      muted: true,
+    })
+  );
+  useEffect(() => void video.play(), [video]);
+  return (
+    <mesh {...props}>
+      <planeGeometry args={[16, 9]} />
+      <meshBasicMaterial toneMapped={false}>
+        <videoTexture attach="map" args={[video]} encoding={sRGBEncoding} />
+      </meshBasicMaterial>
+    </mesh>
   );
 };
 
